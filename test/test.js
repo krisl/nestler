@@ -37,6 +37,107 @@ describe('nestler', () => {
     ])
   })
 
+  it('should enumerate list depth first', function() {
+    const obj = []
+    for(var l1 of result) {
+      const l1Copy = Object.assign({}, l1, {children: []})
+      obj.push(l1Copy)
+      for(var l2 of l1.children) {
+        const l2Copy = Object.assign({}, l2, {children: []})
+        l1Copy.children.push(l2Copy)
+        for(var l3 of l2.children) {
+          const l3Copy = Object.assign({}, l3, {children: []})
+          l2Copy.children.push(l3Copy)
+        }
+      }
+    }
+
+    expect(obj).to.deep.eql([
+      {
+        parent: {
+          level: '1',
+          name: 'a'
+        },
+        children: [
+          {
+            parent: {
+              level: '2',
+              name: 'aa'
+            },
+            children: [
+              {
+                parent: {
+                  level: '3',
+                  name: 'aaa'
+                },
+                children: []
+              }
+            ]
+          },
+          {
+            parent: {
+              level: '2',
+              name: 'ab'
+            },
+            children: [
+              {
+                parent: {
+                  level: '3',
+                  name: 'aba'
+                },
+                children: []
+              },
+              {
+                parent: {
+                  level: '3',
+                  name: 'abb'
+                },
+                children: []
+              }
+            ]
+          },
+          {
+            parent: {
+              level: '2',
+              name: 'ac'
+            },
+            children: []
+          },
+          {
+            parent: {
+              level: '2',
+              name: 'ad'
+            },
+            children: [
+              {
+                parent: {
+                  level: '3',
+                  name: 'ada'
+                },
+                children: []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        parent: {
+          level: '1',
+          name: 'b'
+        },
+        children: [
+          {
+            parent: {
+              level: '2',
+              name: 'ba'
+            },
+            children: []
+          }
+        ]
+      }
+    ])
+  })
+
   it('should iterate over level 2', () => {
     for(var l1 of result) {
       switch (l1.parent.name) {
