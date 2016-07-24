@@ -37,22 +37,8 @@ describe('nestler', () => {
     ])
   })
 
-  it('should enumerate list depth first', function() {
-    const obj = []
-    for(var l1 of result) {
-      const l1Copy = Object.assign({}, l1, {children: []})
-      obj.push(l1Copy)
-      for(var l2 of l1.children) {
-        const l2Copy = Object.assign({}, l2, {children: []})
-        l1Copy.children.push(l2Copy)
-        for(var l3 of l2.children) {
-          const l3Copy = Object.assign({}, l3, {children: []})
-          l2Copy.children.push(l3Copy)
-        }
-      }
-    }
-
-    expect(obj).to.deep.eql([
+  describe('fully serialised tree', () => {
+    const tree = [
       {
         parent: {
           level: '1',
@@ -135,7 +121,40 @@ describe('nestler', () => {
           }
         ]
       }
-    ])
+    ]
+
+    it('should enumerate list breadth first', function() {
+      const obj = Array.from(result).map((level1) => {
+        level1.children = Array.from(level1.children).map((level2) => {
+          level2.children = Array.from(level2.children).map((level3) => {
+            level3.children = Array.from(level3.children).map((no_such_level) => {
+              expect(true).to.eql(false)
+            })
+            return level3
+          })
+          return level2;
+        })
+        return level1;
+      })
+      expect(obj).to.deep.eql(tree)
+    })
+
+    it('should enumerate list depth first', function() {
+      const obj = []
+      for(var l1 of result) {
+        const l1Copy = Object.assign({}, l1, {children: []})
+        obj.push(l1Copy)
+        for(var l2 of l1.children) {
+          const l2Copy = Object.assign({}, l2, {children: []})
+          l1Copy.children.push(l2Copy)
+          for(var l3 of l2.children) {
+            const l3Copy = Object.assign({}, l3, {children: []})
+            l2Copy.children.push(l3Copy)
+          }
+        }
+      }
+      expect(obj).to.deep.eql(tree)
+    })
   })
 
   it('should allow children to be iterated after all parents iterated', () => {
