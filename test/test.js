@@ -18,7 +18,7 @@ const list = Object.freeze([
 describe('nestler', () => {
   let result
   beforeEach(() => {
-    result = nestler(list, list.length, [
+    result = nestler((index) => list[index] , list.length, [
       (item) => item.level === '1',
       (item) => item.level === '2',
       (item) => item.level === '3',

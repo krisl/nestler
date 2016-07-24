@@ -1,10 +1,10 @@
-function nestler(list, size, check, checkpos = 0, state = {pos:0}) {
+function nestler(get, size, check, checkpos = 0, state = {pos:0}) {
   return {
     [Symbol.iterator]() {
       return {
         next() {
           while (state.pos < size) {
-            const item = list[state.pos]
+            const item = get(state.pos)
             state.pos++;
 
             // check if its at our level
@@ -12,7 +12,7 @@ function nestler(list, size, check, checkpos = 0, state = {pos:0}) {
               return {
                 value: {
                   parent: item,
-                  children: nestler(list, size, check, checkpos+1, state)
+                  children: nestler(get, size, check, checkpos+1, state)
                 },
                 done: false
               }
