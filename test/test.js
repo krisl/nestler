@@ -138,6 +138,22 @@ describe('nestler', () => {
     ])
   })
 
+  // pending feature
+  xit('should allow children to be iterated after all parents iterated', () => {
+    const top = [...result]
+    expect(top).to.eql([
+      {parent: {level: '1', name: 'a'}, children: {}},
+      {parent: {level: '1', name: 'b'}, children: {}}
+    ])
+
+    expect([...top[0].children]).to.eql([
+      {parent: {level: '2', name: 'aa'}, children: {}},
+      {parent: {level: '2', name: 'ab'}, children: {}},
+      {parent: {level: '2', name: 'ac'}, children: {}},
+      {parent: {level: '2', name: 'ad'}, children: {}}
+    ])
+  })
+
   it('should iterate over level 2', () => {
     for(var l1 of result) {
       switch (l1.parent.name) {
