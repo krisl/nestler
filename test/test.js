@@ -53,5 +53,28 @@ describe('nestler', () => {
       }
     }
   })
+
+  it('should iterate over level 3', () => {
+    for(var l1 of result) {
+      for(var l2 of l1.children) {
+        if (l2.parent.name === 'aa') {
+          expect([...l2.children]).to.eql([
+            {parent: {level: '3', name: 'aaa'}, children: {}}
+          ])
+        } else if (l2.parent.name === 'ab') {
+          expect([...l2.children]).to.eql([
+            {parent: {level: '3', name: 'aba'}, children: {}},
+            {parent: {level: '3', name: 'abb'}, children: {}}
+          ])
+        } else if (l2.parent.name === 'ac') {
+          expect([...l2.children]).to.eql([])
+        } else if (l2.parent.name === 'ad') {
+          expect([...l2.children]).to.eql([
+            {parent: {level: '3', name: 'ada'}, children: {}}
+          ])
+        }
+      }
+    }
+  })
 })
 
