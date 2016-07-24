@@ -1,3 +1,11 @@
+function isAncestor(checks, depth, item) {
+  for(var ci = 0; ci < depth; ci++) {
+    if (checks[ci](item)) {
+      return true
+    }
+  }
+}
+
 function nestler(get, size, check) {
   const state = {pos: 0}
   const _nestler = function(depth) {
@@ -21,11 +29,9 @@ function nestler(get, size, check) {
               }
 
               // check if it belongs to a parent
-              for(var ci = 0; ci < depth; ci++) {
-                if (check[ci](item)) {
-                  state.pos--
-                  return { done: true };
-                }
+              if (isAncestor(check, depth, item)) {
+                state.pos--;
+                break
               }
             }
             return { done: true }
