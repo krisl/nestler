@@ -1,0 +1,29 @@
+{
+  "name": "nestler",
+  "version": "0.0.1",
+  "description": "turn a flat list into a nestled one",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/krisl/nestler.git"
+  },
+  "keywords": [
+    "nested",
+    "hierarchy",
+    "flat",
+    "children",
+    "deep",
+    "iterable",
+    "list",
+    "array"
+  ],
+  "author": "Aaron Lipinski <kris.lipinski@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krisl/nestler/issues"
+  },
+  "homepage": "https://github.com/krisl/nestler#readme"
+}
