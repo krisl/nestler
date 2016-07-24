@@ -26,5 +26,12 @@ describe('nestler', () => {
   it('should be iterable', () => {
     expect(result).to.be.iterable
   })
+
+  it('should iterate over parent level', () => {
+    expect([...result]).to.eql([
+      {parent: {level: '1', name: 'a'}, children: {}},
+      {parent: {level: '1', name: 'b'}, children: {}}
+    ])
+  })
 })
 
