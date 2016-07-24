@@ -28,12 +28,16 @@ const list = Object.freeze([
 
 You can access child nodes recursively like:
 ```javascript
-const result = nestler((index) => list[index] , list.length, [
-  (item) => item.level === '1',
-  (item) => item.level === '2',
-  (item) => item.level === '3',
-  () => false
-])
+const result = nestler(
+  (index) => list[index],         // fn to fetch item by position
+  list.length,                    // length of set to check over
+  [                               // array of fns for checking if
+    (item) => item.level === '1', // children exist as each level
+    (item) => item.level === '2',
+    (item) => item.level === '3',
+    () => false
+  ]
+)
 
 Array.from(result).map((level1) =>
   <Level1 item={level1}>
@@ -48,6 +52,13 @@ Array.from(result).map((level1) =>
 )
 ```
 
+nestler returns an iterable of node objects
+```javascript
+{
+  parent: <original_object>,
+  children: <iterable of nodes>
+}
+```
 
 
 ## Tests

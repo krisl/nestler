@@ -1,7 +1,7 @@
 {
   "name": "nestler",
   "version": "0.0.1",
-  "description": "turn a flat list into a nestled one",
+  "description": "treat a flat list as nested",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec"
