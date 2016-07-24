@@ -16,12 +16,15 @@ const list = Object.freeze([
 ])
 
 describe('nestler', () => {
-  const result = nestler(list, list.length, [
-    (item) => item.level === '1',
-    (item) => item.level === '2',
-    (item) => item.level === '3',
-    () => false
-  ])
+  let result
+  beforeEach(() => {
+    result = nestler(list, list.length, [
+      (item) => item.level === '1',
+      (item) => item.level === '2',
+      (item) => item.level === '3',
+      () => false
+    ])
+  })
 
   it('should be iterable', () => {
     expect(result).to.be.iterable
@@ -32,6 +35,23 @@ describe('nestler', () => {
       {parent: {level: '1', name: 'a'}, children: {}},
       {parent: {level: '1', name: 'b'}, children: {}}
     ])
+  })
+
+  it('should iterate over level 2', () => {
+    for(var l1 of result) {
+      if (l1.parent.name === 'a') {
+        expect([...l1.children]).to.eql([
+          {parent: {level: '2', name: 'aa'}, children: {}},
+          {parent: {level: '2', name: 'ab'}, children: {}},
+          {parent: {level: '2', name: 'ac'}, children: {}},
+          {parent: {level: '2', name: 'ad'}, children: {}}
+        ])
+      } else if (l1.parent.name === 'b') {
+        expect([...l1.children]).to.eql([
+          {parent: {level: '2', name: 'ba'}, children: {}}
+        ])
+      }
+    }
   })
 })
 
