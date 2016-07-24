@@ -7,30 +7,30 @@ function isAncestor(checks, depth, item) {
 }
 
 function nestler(get, size, check) {
-  const state = {pos: 0}
-  const _nestler = function(depth) {
+  const _nestler = function(depth, pos) {
     return {
       [Symbol.iterator]() {
         return {
           next() {
-            while (state.pos < size) {
-              const item = get(state.pos)
-              state.pos++;
+            while (pos < size) {
+              const item = get(pos)
+              pos++;
 
               // check if its at our level
               if (check[depth](item)) {
                 return {
                   value: {
                     parent: item,
-                    children: _nestler(depth+1)
+                    children: _nestler(depth+1, pos)
                   },
                   done: false
                 }
               }
 
               // check if it belongs to a parent
+              // otherwise assume its an unwanted
+              // child and we'll skip over it
               if (isAncestor(check, depth, item)) {
-                state.pos--;
                 break
               }
             }
@@ -40,7 +40,7 @@ function nestler(get, size, check) {
       }
     }
   }
-  return _nestler(0) // start at depth 0
+  return _nestler(0, 0) // start at depth 0, pos 0
 }
 
 module.exports = nestler
