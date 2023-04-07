@@ -3,7 +3,7 @@ Nestler
 
 Nestles a sorted flat list without parent references into a nested structure
 [![Build Status](https://github.com/krisl/nestler/actions/workflows/node.js.yml/badge.svg)](https://github.com/krisl/nestler/actions)
-[![Coverage Status](https://coveralls.io/repos/github/krisl/nestler/badge.svg)](https://coveralls.io/github/krisl/nestler)
+[![Coverage Status](https://coveralls.io/repos/github/krisl/nestler/badge.svg?branch=master)](https://coveralls.io/github/krisl/nestler?branch=master)
 
 ## Installation
 
