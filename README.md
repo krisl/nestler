@@ -35,7 +35,7 @@ const result = nestler(
   (index) => list[index],         // fn to fetch item by position
   list.length,                    // length of set to check over
   [                               // array of fns for checking if
-    (item) => item.level === '1', // children exist as each level
+    (item) => item.level === '1', // children exist at each level
     (item) => item.level === '2',
     (item) => item.level === '3',
     () => false
